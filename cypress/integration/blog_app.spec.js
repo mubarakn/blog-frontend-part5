@@ -1,4 +1,34 @@
-describe('Blog App', function() {
+describe('Blog app', function() {
+    beforeEach(() => {
+        cy.request('POST', 'http://localhost:3003/api/testing/reset')
+        const user = {
+            name: 'Mubarak Basha',
+            username: 'mubarak',
+            password: 'basha'
+        }
+        cy.request('POST', 'http://localhost:3003/api/users', user)
+        cy.visit('http://localhost:3000')
+        cy.contains('Show Login').click()
+    })
+
+    it('login form is shown', function() {
+        cy.contains('login')
+    })
+
+    describe('login', function() {
+        it('succeeds with correct credentials', function() {
+            cy.get('#username').type('mubarak')
+            cy.get('#password').type('basha')
+            cy.contains('login').click()
+        })
+
+        it('fails with wrong credentials', function() {
+
+        })
+    })
+})
+
+/* describe('Blog App', function() {
 
     beforeEach(() => {
         cy.request('POST', 'http://localhost:3003/api/testing/reset')
@@ -43,4 +73,4 @@ describe('Blog App', function() {
     })
 
 
-})
+}) */
