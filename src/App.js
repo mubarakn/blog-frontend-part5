@@ -69,8 +69,9 @@ const App = () => {
             <>
                 <h2>blogs</h2>
                 <div>{user.name} logged in <button onClick={() => {localStorage.clear(); setUser(null)}}>logout</button></div>
-                {blogs.sort((a, b) => b.likes - a.likes ).map(blog =>
-                    <Blog key={blog.id} blog={blog} like={handleLike} removeBlog={() => handleRemoveBlog(blog)} />
+                {blogs.sort((a, b) => b.likes - a.likes ).map(blog => {
+                    return (<Blog key={blog.id} blog={blog} like={handleLike} removeBlog={() => handleRemoveBlog(blog)} />)
+                }
                 )}
             </>
         )

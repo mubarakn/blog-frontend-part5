@@ -20,10 +20,54 @@ describe('Blog app', function() {
             cy.get('#username').type('mubarak')
             cy.get('#password').type('basha')
             cy.contains('login').click()
+            cy.contains('Mubarak Basha logged in')
         })
 
         it('fails with wrong credentials', function() {
+            cy.get('#username').type('mubarak')
+            cy.get('#password').type('bahsa')
+            cy.contains('login').click()
+            cy.contains('Invalid username or password')
+        })
+    })
 
+    describe('When logged in', function() {
+        beforeEach(function() {
+            cy.get('#username').type('mubarak')
+            cy.get('#password').type('basha')
+            cy.contains('login').click()
+        })
+
+        it('A blog can be created', function() {
+            cy.contains('create new blog').click()
+            cy.get('#title').type('test title')
+            cy.get('#author').type('test author')
+            cy.get('#url').type('test url')
+            cy.get('#submit').click()
+            cy.contains('test title')
+        })
+    })
+
+    describe('when blog is created', function() {
+        beforeEach(function() {
+            cy.get('#username').type('mubarak')
+            cy.get('#password').type('basha')
+            cy.contains('login').click()
+            cy.contains('create new blog').click()
+            cy.get('#title').type('test title')
+            cy.get('#author').type('test author')
+            cy.get('#url').type('test url')
+            cy.get('#submit').click()
+        })
+
+        it('users can like a blog', function() {
+            cy.contains('view').click()
+            cy.contains('like').click()
+        })
+
+        it('users can delete a blog', function() {
+            cy.contains('view').click()
+            cy.contains('remove').click()
         })
     })
 })
